@@ -4,22 +4,26 @@ import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
 
-//https://docs.nestjs.com/techniques/database
 @Module({
   imports: [
+    //https://docs.nestjs.com/techniques/configuration#use-module-globally
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
+    //https://docs.nestjs.com/techniques/database
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'moovieBooker',
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
       autoLoadEntities: true,
       synchronize: true,
     }),
     UserModule,
+    //https://docs.nestjs.com/techniques/configuration#getting-started
   ],
   controllers: [AuthController],
   providers: [AuthService],

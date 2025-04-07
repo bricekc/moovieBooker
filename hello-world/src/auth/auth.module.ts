@@ -13,7 +13,7 @@ import { JwtStrategy } from './jwt.strategy';
     //https://docs.nestjs.com/security/authentication#jwt-token
     JwtModule.register({
       global: true,
-      secret: 'secret',
+      secret: process.env.JWT_SECRET ?? 'secret',
       signOptions: { expiresIn: '1h' },
     }),
   ],
