@@ -87,7 +87,7 @@ export class MoviesService {
 
   getMovieById(id: number) {
     return this.httpService
-      .get(`${this.baseUrl}/movie/${id}`, {
+      .get(`https://api.themoviedb.org/3/movie/${id}`, {
         headers: {
           Authorization: 'Bearer ' + this.apiKey,
         },
