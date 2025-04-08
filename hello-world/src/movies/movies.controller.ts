@@ -9,7 +9,7 @@ import { MoviesService } from './movies.service';
 import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 enum MovieSortOption {
-  POPULAR = 'popular',
+  POPULARITY = 'popularity',
   TOP_RATED = 'top_rated',
 }
 
@@ -42,8 +42,8 @@ export class MoviesController {
   })
   getMovies(
     @Query('page') page: number = 1,
-    @Query('search') search: string,
-    @Query('sort') sort: MovieSortOption,
+    @Query('search') search?: string,
+    @Query('sort') sort?: MovieSortOption,
   ) {
     if (search && sort) {
       throw new BadRequestException(

@@ -1,5 +1,4 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Body, Controller, Post } from '@nestjs/common';
 import { RegisterDto } from './dto/RegisterDto';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/LoginDto';
@@ -38,8 +37,7 @@ export class AuthController {
     description: 'Bad Request',
   })
   @Post('login')
-  async login(@Body() loginDto: LoginDto, @Res() res: Response): Promise<void> {
-    const token = await this.authService.login(loginDto);
-    res.status(200).json({ token });
+  async login(@Body() loginDto: LoginDto): Promise<string> {
+    return await this.authService.login(loginDto);
   }
 }

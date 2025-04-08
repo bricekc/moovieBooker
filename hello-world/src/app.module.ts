@@ -5,8 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { MoviesController } from './tmdb/movies.controller';
-import { MoviesModule } from './tmdb/movies.module';
+import { MoviesController } from './movies/movies.controller';
+import { MoviesModule } from './movies/movies.module';
 @Module({
   imports: [
     //https://docs.nestjs.com/techniques/configuration#use-module-globally
