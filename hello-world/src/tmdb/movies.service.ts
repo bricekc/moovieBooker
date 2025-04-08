@@ -12,7 +12,7 @@ interface TMDBResponse {
 interface TMDBMovie {
   id: number;
   original_title: string;
-  poster_path: string | null;
+  poster_path: string;
   release_date: string;
   title: string;
   overview: string;
@@ -30,7 +30,7 @@ interface TMDBMovieDetails {
   original_language: string;
   original_title: string;
   popularity: number;
-  poster_path: string | null;
+  poster_path: string;
   release_date: string;
   vote_average: number;
 }
@@ -38,7 +38,7 @@ interface TMDBMovieDetails {
 @Injectable()
 export class MoviesService {
   private readonly apiKey: string;
-  private readonly baseUrl = 'https://api.themoviedb.org/3';
+  private baseUrl: string;
 
   constructor(
     private httpService: HttpService,
@@ -47,14 +47,26 @@ export class MoviesService {
     this.apiKey = this.configService.get<string>('TMDB_API_KEY') as string;
   }
 
-  getMovies(page: number) {
+  getMovies(page: number, search?: string, sort?: string) {
+    if (sort) {
+      if (sort === 'popular') {
+        this.baseUrl = 'https://api.themoviedb.org/3/movie/popular';
+      } else if (sort === 'top_rated') {
+        this.baseUrl = 'https://api.themoviedb.org/3/movie/top_rated';
+      }
+    } else {
+      this.baseUrl = search
+        ? `https://api.themoviedb.org/3/search/movie`
+        : `https://api.themoviedb.org/3/movie/now_playing`;
+    }
     return this.httpService
-      .get(`${this.baseUrl}/movie/now_playing`, {
+      .get(this.baseUrl, {
         headers: {
           Authorization: 'Bearer ' + this.apiKey,
         },
         params: {
           page,
+          query: search,
         },
       })
       .pipe(
