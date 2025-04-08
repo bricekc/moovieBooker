@@ -34,10 +34,6 @@ export class AuthController {
     description: 'The user has been successfully logged in.',
   })
   @ApiResponse({
-    status: 401,
-    description: 'Unauthorized',
-  })
-  @ApiResponse({
     status: 400,
     description: 'Bad Request',
   })
