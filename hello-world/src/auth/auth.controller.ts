@@ -37,7 +37,7 @@ export class AuthController {
     description: 'Bad Request',
   })
   @Post('login')
-  async login(@Body() loginDto: LoginDto): Promise<string> {
+  async login(@Body() loginDto: LoginDto) {
     return await this.authService.login(loginDto);
   }
 }

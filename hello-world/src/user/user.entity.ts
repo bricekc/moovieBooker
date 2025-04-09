@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Reservation } from '../reservation/reservation.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 //https://docs.nestjs.com/recipes/sql-typeorm#repository-pattern
 
@@ -18,4 +19,10 @@ export class User {
 
   @Column()
   password: string;
+
+  //https://docs.nestjs.com/techniques/database#relations
+  @OneToMany(() => Reservation, (reservation) => reservation.user, {
+    cascade: true,
+  })
+  reservations: Reservation[];
 }

@@ -57,7 +57,7 @@ describe('AuthController', () => {
 
   describe('login', () => {
     it('should call authService.login and return token', async () => {
-      const token = 'jwt-token';
+      const token = { token: 'jwt-token' };
       jest.spyOn(authService, 'login').mockResolvedValue(token);
 
       const result = await controller.login(mockLoginDto);

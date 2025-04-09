@@ -38,7 +38,7 @@ export class AuthService {
     return email;
   }
 
-  async login(loginDto: LoginDto): Promise<string> {
+  async login(loginDto: LoginDto) {
     const { email, password } = loginDto;
     const user: User | null = await this.UserRepository.findOneBy({ email });
     if (!user) {
@@ -51,6 +51,6 @@ export class AuthService {
     }
     const payload = { sub: user.id, email: user.email };
     const token = await this.jwtService.signAsync(payload);
-    return token;
+    return { token };
   }
 }

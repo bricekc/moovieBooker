@@ -7,6 +7,7 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { MoviesController } from './movies/movies.controller';
 import { MoviesModule } from './movies/movies.module';
+import { ReservationModule } from './reservation/reservation.module';
 @Module({
   imports: [
     //https://docs.nestjs.com/techniques/configuration#use-module-globally
@@ -25,6 +26,7 @@ import { MoviesModule } from './movies/movies.module';
     }),
     UserModule,
     MoviesModule,
+    ReservationModule,
   ],
   controllers: [AuthController, MoviesController],
   providers: [AuthService],
