@@ -15,6 +15,7 @@ interface TMDBMovie {
   release_date: string;
   title: string;
   overview: string;
+  backdrop_path: string;
 }
 
 interface TMDBMovieDetails {
@@ -28,6 +29,8 @@ interface TMDBMovieDetails {
   poster_path: string;
   release_date: string;
   vote_average: number;
+  backdrop_path: string;
+  runtime: number;
 }
 
 @Injectable()
@@ -76,6 +79,7 @@ export class MoviesService {
         original_title: movie.original_title,
         title: movie.title,
         overview: movie.overview,
+        backdrop_path: movie.backdrop_path,
       }));
     } catch {
       throw new BadRequestException(`Erreur lors de la récupération des films`);
@@ -103,6 +107,8 @@ export class MoviesService {
         poster_path: response.data.poster_path,
         release_date: response.data.release_date,
         vote_average: response.data.vote_average,
+        backdrop_path: response.data.backdrop_path,
+        runtime: response.data.runtime,
       };
     } catch {
       throw new BadRequestException(`Erreur lors de la récupération du film`);
