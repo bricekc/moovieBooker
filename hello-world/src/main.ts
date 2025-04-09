@@ -18,6 +18,12 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory);
   //https://docs.nestjs.com/pipes#global-scoped-pipes
   app.useGlobalPipes(new ValidationPipe());
+  //https://docs.nestjs.com/security/cors
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  });
   await app.listen(process.env.PORT ?? 3000);
 }
 

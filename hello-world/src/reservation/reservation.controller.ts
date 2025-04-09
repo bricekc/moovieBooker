@@ -87,7 +87,6 @@ export class ReservationController {
     @Param() params: { id: number },
     @Request() req: { user: { sub: number; email: string } },
   ) {
-    console.log('params', params);
     return await this.reservationService.deleteReservation(
       req.user.sub,
       params.id,
