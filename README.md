@@ -126,7 +126,7 @@ Points d'accès principaux:
 
 ## 🚀 Déploiement
 
-L'application est déployée sur:
+L'application est déployée sur :
 
 - **Frontend:** Netlify et Render
 - **Backend:** Render

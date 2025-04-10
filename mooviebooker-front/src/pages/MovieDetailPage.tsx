@@ -24,7 +24,7 @@ const MovieDetailPage = () => {
   const { id } = useParams();
   const movieId = Number(id);
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  const { user } = useAuth();
   
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
@@ -77,7 +77,7 @@ const MovieDetailPage = () => {
       return;
     }
 
-    if (!isAuthenticated) {
+    if (!user) {
       navigate(`/login?redirect=/movies/${movie.id}`);
       return;
     }
@@ -97,7 +97,6 @@ const MovieDetailPage = () => {
       navigate("/reservations");
     } catch (error) {
       console.error("Error creating reservation:", error);
-      toast.error("Erreur lors de la réservation");
     } finally {
       setIsReserving(false);
     }

@@ -52,7 +52,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       
       // Appel à l'API réelle
       const response = await authService.login({ email, password });
-      setUser(response.user);
+      const userData = await authService.getCurrentUser();
+      setUser(userData);      
       toast.success("Connexion réussie");
       setIsAuthenticated(true);
     } catch (error: any) {
