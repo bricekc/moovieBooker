@@ -116,7 +116,11 @@ describe('ReservationService', () => {
         where: { id: reservationId },
         relations: { user: true },
       });
-      expect(result).toEqual(mockReservation);
+      expect(result).toEqual({
+        id: mockReservation.id,
+        movieId: mockReservation.movieId,
+        reservationDate: mockReservation.reservationDate,
+      });
     });
 
     it('should throw BadRequestException if reservation does not exist', async () => {
