@@ -6,6 +6,7 @@ import { firstValueFrom } from 'rxjs';
 
 interface TMDBResponse {
   results: TMDBMovie[];
+  total_pages: number;
 }
 
 interface TMDBMovie {
@@ -72,15 +73,18 @@ export class MoviesService {
         }),
       );
 
-      return response.data.results.map((movie: TMDBMovie) => ({
-        id: movie.id,
-        release_date: movie.release_date,
-        poster_path: movie.poster_path,
-        original_title: movie.original_title,
-        title: movie.title,
-        overview: movie.overview,
-        backdrop_path: movie.backdrop_path,
-      }));
+      return {
+        movies: response.data.results.map((movie: TMDBMovie) => ({
+          id: movie.id,
+          release_date: movie.release_date,
+          poster_path: movie.poster_path,
+          original_title: movie.original_title,
+          title: movie.title,
+          overview: movie.overview,
+          backdrop_path: movie.backdrop_path,
+        })),
+        total_pages: response.data.total_pages,
+      };
     } catch {
       throw new BadRequestException(`Erreur lors de la récupération des films`);
     }

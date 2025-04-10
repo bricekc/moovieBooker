@@ -6,6 +6,7 @@ import { Movie } from "@/types";
 import MovieCard from "./MovieCard";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import { se } from "date-fns/locale";
 
 interface MovieGridProps {
   initialMovies?: Movie[];
@@ -32,7 +33,8 @@ const MovieGrid = ({ initialMovies }: MovieGridProps) => {
         
         // Pour la démo, utilisons les données simulées
         const response = await movieService.getMovies(1, searchQuery, sort);
-        setMovies(response);
+        setMovies(response.movies);
+        setTotalPages(response.total_pages);
         setPage(1);
       } catch (error) {
         console.error("Error loading movies:", error);
@@ -56,9 +58,9 @@ const MovieGrid = ({ initialMovies }: MovieGridProps) => {
       // const response = await movieService.getMovies(nextPage, searchQuery, sort);
       
       // Pour la démo, utilisons les données simulées
-      const response = movieService.getMovies(nextPage, searchQuery);
+      const response = await movieService.getMovies(nextPage, searchQuery);
       
-      setMovies((prevMovies) => [...prevMovies, ...response.results]);
+      setMovies((prevMovies) => [...prevMovies, ...response.movies]);
       setPage(nextPage);
     } catch (error) {
       console.error("Error loading more movies:", error);

@@ -10,7 +10,7 @@ import { BadRequestException, ForbiddenException } from '@nestjs/common';
 import { CreateReservationDto } from './dto/CreateReservationDto';
 import { AxiosResponse } from 'axios';
 import { DeleteResult } from 'typeorm';
-import { User } from '../user/user.entity'; // Assurez-vous que le chemin est correct
+import { User } from '../user/user.entity';
 
 describe('ReservationService', () => {
   let service: ReservationService;
@@ -18,7 +18,6 @@ describe('ReservationService', () => {
   let httpService: HttpService;
   let configService: ConfigService;
 
-  // Créer un mock User complet
   const mockUser: User = {
     id: 1,
     username: 'testuser',
@@ -29,7 +28,6 @@ describe('ReservationService', () => {
     reservations: [],
   } as User;
 
-  // Créer un mock Reservation complet
   const mockReservation: Reservation = {
     id: 1,
     movieId: 123,
@@ -133,7 +131,7 @@ describe('ReservationService', () => {
     });
 
     it('should throw ForbiddenException if reservation does not belong to user', async () => {
-      const userId = 2; // Different from mockReservation.user.id
+      const userId = 2;
       const reservationId = 1;
 
       jest
@@ -200,7 +198,7 @@ describe('ReservationService', () => {
       const userId = 1;
       const existingReservation: Reservation = {
         ...mockReservation,
-        reservationDate: new Date('2023-05-20T15:30:00Z'), // Within 2 hours
+        reservationDate: new Date('2023-05-20T15:30:00Z'),
       };
 
       jest.spyOn(httpService, 'get').mockReturnValue(
@@ -265,7 +263,7 @@ describe('ReservationService', () => {
     });
 
     it('should throw ForbiddenException if reservation does not belong to user', async () => {
-      const userId = 2; // Different from mockReservation.user.id
+      const userId = 2;
       const reservationId = 1;
 
       jest

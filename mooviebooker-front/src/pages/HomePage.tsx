@@ -22,12 +22,12 @@ const HomePage = () => {
         // Pour la démo, utilisons les données simulées
         //const response = movieService.getMovies();
         
-        if (response.length > 0) {
+        if (response.movies.length > 0) {
           // Utiliser le premier film comme film en vedette
-          setFeaturedMovie(response[0]);
+          setFeaturedMovie(response.movies[0]);
           
           // Utiliser les autres films pour le carrousel
-          setPopularMovies(response.slice(1, 7));
+          setPopularMovies(response.movies.slice(1, 7));
         }
       } catch (error) {
         console.error("Error loading homepage movies:", error);

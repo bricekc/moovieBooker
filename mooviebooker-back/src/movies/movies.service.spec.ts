@@ -56,8 +56,10 @@ describe('MoviesService', () => {
               release_date: '2023-01-01',
               title: 'Test Movie',
               overview: 'A test movie',
+              backdrop_path: undefined,
             },
           ],
+          total_pages: 5,
         },
         status: 200,
         statusText: 'OK',
@@ -67,18 +69,22 @@ describe('MoviesService', () => {
 
       jest.spyOn(httpService, 'get').mockReturnValue(of(mockResponse));
 
-      const movies = await service.getMovies(1);
+      const result = await service.getMovies(1);
 
-      expect(movies).toEqual([
-        {
-          id: 1,
-          original_title: 'Test Movie',
-          poster_path: '/path.jpg',
-          release_date: '2023-01-01',
-          title: 'Test Movie',
-          overview: 'A test movie',
-        },
-      ]);
+      expect(result).toEqual({
+        movies: [
+          {
+            id: 1,
+            original_title: 'Test Movie',
+            poster_path: '/path.jpg',
+            release_date: '2023-01-01',
+            title: 'Test Movie',
+            overview: 'A test movie',
+            backdrop_path: undefined,
+          },
+        ],
+        total_pages: 5,
+      });
     });
 
     it('should get popular movies when sort is "popular"', async () => {
@@ -92,8 +98,10 @@ describe('MoviesService', () => {
               release_date: '2023-03-03',
               title: 'Popular Movie',
               overview: 'A popular movie',
+              backdrop_path: undefined,
             },
           ],
+          total_pages: 10,
         },
         status: 200,
         statusText: 'OK',
@@ -103,18 +111,22 @@ describe('MoviesService', () => {
 
       jest.spyOn(httpService, 'get').mockReturnValue(of(mockResponse));
 
-      const movies = await service.getMovies(1, undefined, 'popular');
+      const result = await service.getMovies(1, undefined, 'popular');
 
-      expect(movies).toEqual([
-        {
-          id: 3,
-          original_title: 'Popular Movie',
-          poster_path: '/popular.jpg',
-          release_date: '2023-03-03',
-          title: 'Popular Movie',
-          overview: 'A popular movie',
-        },
-      ]);
+      expect(result).toEqual({
+        movies: [
+          {
+            id: 3,
+            original_title: 'Popular Movie',
+            poster_path: '/popular.jpg',
+            release_date: '2023-03-03',
+            title: 'Popular Movie',
+            overview: 'A popular movie',
+            backdrop_path: undefined,
+          },
+        ],
+        total_pages: 10,
+      });
     });
   });
 

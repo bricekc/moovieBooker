@@ -8,7 +8,6 @@ describe('AuthController', () => {
   let controller: AuthController;
   let authService: AuthService;
 
-  // Mock data
   const mockRegisterDto: RegisterDto = {
     email: 'test@example.com',
     password: 'password123',
