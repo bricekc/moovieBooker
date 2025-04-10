@@ -49,7 +49,11 @@ export class ReservationService {
         'You do not have permission to access this reservation',
       );
     }
-    return reservation;
+    return {
+      id: reservation.id,
+      movieId: reservation.movieId,
+      reservationDate: reservation.reservationDate,
+    };
   }
 
   async createReserversation(

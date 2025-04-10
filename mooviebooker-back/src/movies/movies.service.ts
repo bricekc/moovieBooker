@@ -86,7 +86,7 @@ export class MoviesService {
         total_pages: response.data.total_pages,
       };
     } catch {
-      throw new BadRequestException(`Erreur lors de la récupération des films`);
+      throw new BadRequestException(`Failed to fetch movies`);
     }
   }
 
@@ -114,8 +114,11 @@ export class MoviesService {
         backdrop_path: response.data.backdrop_path,
         runtime: response.data.runtime,
       };
-    } catch {
-      throw new BadRequestException(`Erreur lors de la récupération du film`);
+    } catch (error) {
+      if (error.status === 404) {
+        throw new BadRequestException(`Movie not found`);
+      }
+      throw new BadRequestException(`Failed to fetch movies`);
     }
   }
 }

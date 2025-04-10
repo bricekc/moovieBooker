@@ -6,7 +6,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
-import { ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
 enum MovieSortOption {
   POPULARITY = 'popularity',
@@ -40,6 +46,15 @@ export class MoviesController {
     description: 'The sort type of the movies',
     enum: MovieSortOption,
   })
+  @ApiResponse({
+    status: 200,
+    description: 'List of movies successfully retrieved',
+  })
+  @ApiResponse({
+    status: 400,
+    description:
+      'Bad request - search and sort parameters cannot be used together',
+  })
   getMovies(
     @Query('page') page: number = 1,
     @Query('search') search?: string,
@@ -61,6 +76,14 @@ export class MoviesController {
     name: 'id',
     required: true,
     description: 'The id of the movie',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Movie details successfully retrieved',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Movie not found',
   })
   @Get('/:id')
   getMovieById(@Param() params: { id: number }) {

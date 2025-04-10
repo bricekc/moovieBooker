@@ -13,6 +13,7 @@ import {
   ApiBody,
   ApiOperation,
   ApiParam,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { ReservationService } from './reservation.service';
@@ -29,6 +30,14 @@ export class ReservationController {
   @ApiOperation({
     summary: 'Get reservations',
   })
+  @ApiResponse({
+    status: 200,
+    description: 'List of user reservations successfully retrieved',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing authentication token',
+  })
   @Get('/')
   async getAllByUser(@Request() req: { user: { sub: number; email: string } }) {
     return await this.reservationService.getAll(req.user.sub);
@@ -43,6 +52,23 @@ export class ReservationController {
   })
   @ApiOperation({
     summary: 'Get one reservation by id',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Reservation details successfully retrieved',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing authentication token',
+  })
+  @ApiResponse({
+    status: 403,
+    description:
+      'Forbidden - You do not have permission to access this reservation',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Reservation not found or does not belong to the user',
   })
   @Get('/:id')
   async getOneByUser(
@@ -60,6 +86,18 @@ export class ReservationController {
   })
   @ApiOperation({
     summary: 'Create a reservation',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Reservation successfully created',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Bad request - Invalid reservation data',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing authentication token',
   })
   @Post('/')
   async createReservation(
@@ -81,6 +119,23 @@ export class ReservationController {
     name: 'id',
     required: true,
     description: 'The id of the reservation',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Reservation successfully deleted',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized - Invalid or missing authentication token',
+  })
+  @ApiResponse({
+    status: 403,
+    description:
+      'Forbidden - You do not have permission to access this reservation',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Reservation not found or does not belong to the user',
   })
   @Delete('/:id')
   async deleteReservation(
